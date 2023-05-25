@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <errno.h>
 
+extern char **environ;
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 char *my_strchr(const char *str, int ch);
 char *_strtok(char *str, const char *delim);
