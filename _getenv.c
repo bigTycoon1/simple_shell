@@ -1,27 +1,11 @@
 #include "shell.h"
 /**
- * _strcmp - This function compare two string
- * @s1: The first string
- * @s2: The second string
- *
- * Return: 0 if s1 == s2, postive number in ascii if s1 > s2,
- * negative number in ascii if s2 > s1.
- */
-int _strcmp(char *s1, char *s2)
-{
-	while (*s1 == *s2 && *s1)
-		++s1, ++s2;
-
-	return (*s1 - *s2);
-}
-/**
  * _getenv - getenv()
  * @name: string
  * Return: path
  */
 char *_getenv(const char *name)
 {
-	char **environ;
 	int i;
 
 	for (i = 0; environ[i] != NULL; i++)
@@ -39,22 +23,6 @@ char *_getenv(const char *name)
 				return (env_value);
 			}
 		}
-	}
-	return (NULL);
-}
-/**
- * my_strchr - This search for specific char
- * @str: string
- * @ch: char to search
- * Return: NULL
- */
-char *my_strchr(const char *str, int ch)
-{
-	while (*str != '\0')
-	{
-		if (*str == ch)
-			return ((char *)str);
-		str++;
 	}
 	return (NULL);
 }
