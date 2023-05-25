@@ -17,5 +17,13 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 char *my_strchr(const char *str, int ch);
 char *_strtok(char *str, const char *delim);
 char *_getenv(const char *name);
-int _strcmp(char *s1, char *s2);
+int _strcmp(const char *str1, const char *str2);
+int _strlen(const char *str);
+int _strncpy(char *dest, char *src, int size);
+int _strncmp(const char *str1, const char *str2, size_t len);
+int _strcpy(char *dest, char *src);
+char *_strcat(char *dest, const char *src);
+char *_strdup(char *s);
+void *_memcpy(void *dest, void *src, size_t n);
+void *_realloc(void *ptr, size_t size);
 #endif /* SHELL_H */
