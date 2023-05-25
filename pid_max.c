@@ -5,9 +5,9 @@
   *
   * Return: Always 0
   */
-int main()
+int main(void)
 {
-    printf("Pid_max: %d\n", INT_MAX);
+	printf("Pid_max: %d\n", INT_MAX);
 
-    return (0);
+	return (0);
 }

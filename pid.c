@@ -7,10 +7,11 @@
  * Return: Always 0.
  */
 
-int main() 
+int main(void)
 {
-    pid_t p_pid = getppid();
-    printf("P PID: %u\n", p_pid);
+	pid_t p_pid = getppid();
 
-    return 0;
+	printf("P PID: %u\n", p_pid);
+
+	return (0);
 }

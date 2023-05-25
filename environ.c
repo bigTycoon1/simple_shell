@@ -74,7 +74,7 @@ int _myunsetenv(info_t *info)
 }
 
 /**
- * populate_env_list - populate the array and then print the environ variables 
+ * populate_env_list - populate the array and then print the environ variables
  * @info: info of the potential arguments.
  *
  * Return: Always 0

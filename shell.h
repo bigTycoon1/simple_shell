@@ -107,7 +107,7 @@ typedef struct builtin
 {
 	char *type;
 	int (*func)(info_t *);
-} 
+}
 	builtin_table;
 
 /* toem_vars.c */
