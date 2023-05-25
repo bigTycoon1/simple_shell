@@ -1,16 +1,15 @@
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdio.h>
+#include "shell.h"
 /**
  * main - PID
  *
- * Return: Always 0.
+ * Return: Always zero
  */
-
-int main() 
+int main(void)
 {
-    pid_t p_pid = getppid();
-    printf("P PID: %u\n", p_pid);
+	pid_t my_pid;
 
-    return 0;
+	my_pid = getpid();
+	printf("%u\n", my_pid);
+
+	return (0);
 }
