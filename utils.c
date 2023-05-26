@@ -1,105 +1,74 @@
 #include "shell.h"
-/**
- * my_strchr - This search for specific char
- * @str: string
- * @ch: char to search
- * Return: NULL
- */
-char *my_strchr(const char *str, int ch)
-{
-	while (*str != '\0')
-	{
-		if (*str == ch)
-			return ((char *)str);
-		str++;
-	}
 
-	return (NULL);
-}
 /**
- * _strcat - strcat()
- * @dest: destination string
- * @src: source string
- * Return: concatenated string
+ **_strncpy - copies a string
+ *@dest: the destination string to be copied to
+ *@src: the source string
+ *@n: the amount of characters to be copied
+ *Return: the concatenated string
  */
-char *_strcat(char *dest, const char *src)
+char *_strncpy(char *dest, char *src, int n)
 {
-	char *p = dest;
-	int i = 0, j = 0;
+	int i, j;
+	char *s = dest;
 
-	while (dest[i] != '\0')
+	i = 0;
+	while (src[i] != '\0' && i < n - 1)
 	{
+		dest[i] = src[i];
 		i++;
 	}
-	while (src[j] != '\0')
+	if (i < n)
 	{
-		p[i] = src[j];
+		j = i;
+		while (j < n)
+		{
+			dest[j] = '\0';
+			j++;
+		}
+	}
+	return (s);
+}
+
+/**
+ **_strncat - concatenates two strings
+ *@dest: the first string
+ *@src: the second string
+ *@n: the amount of bytes to be maximally used
+ *Return: the concatenated string
+ */
+char *_strncat(char *dest, char *src, int n)
+{
+	int i, j;
+	char *s = dest;
+
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (src[j] != '\0' && j < n)
+	{
+		dest[i] = src[j];
 		i++;
 		j++;
 	}
-	p[i] = '\0';
-	return (p);
+	if (j < n)
+		dest[i] = '\0';
+	return (s);
 }
+
 /**
- * _memcpy - copies memory from the source to destination
- * @dest: destination
- * @src: source
- * @n: size of memory to be copied
- * Return: memory of destination
+ **_strchr - locates a character in a string
+ *@s: the string to be parsed
+ *@c: the character to look for
+ *Return: (s) a pointer to the memory area s
  */
-void *_memcpy(void *dest, void *src, size_t n)
+char *_strchr(char *s, char c)
 {
-	char *cdest = (char *)(dest);
-	const char *csrc = (const char *)(src);
-	size_t i = 0;
+	do {
+		if (*s == c)
+			return (s);
+	} while (*s++ != '\0');
 
-	while (i < n)
-	{
-		cdest[i] = csrc[i];
-		i++;
-	}
-	return (dest);
+	return (NULL);
 }
-/**
- * _realloc - realloc function
- * @ptr: old malloc pointer
- * @size: new size
- * Return: new ptr
- */
-void *_realloc(void *ptr, size_t size)
-{
-	void *new_ptr;
-
-	if (ptr == NULL)
-		return (malloc(size));
-	if (size == 0)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	new_ptr = malloc(size);
-	if (new_ptr == NULL)
-		return (NULL);
-	_memcpy(new_ptr, ptr, size);
-	free(ptr);
-	return (new_ptr);
-}
-/**
- * _strdup - strdup()
- * @s: string
- * Return: duplicate of s
- */
-char *_strdup(char *s)
-{
-	size_t len = _strlen(s) + 1;
-	char *new_str = malloc(len);
-
-	if (new_str == NULL)
-	{
-		return (NULL);
-	}
-	_memcpy(new_str, s, len);
-
-	return (new_str);
-}
-

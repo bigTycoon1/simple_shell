@@ -1,55 +1,83 @@
-#ifndef _SHELL_H_
-#define _SHELL_H_
+char **strtow2(char *, char);
 
-/* HEADER */
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <limits.h>
-#include <fcntl.h>
-#include <errno.h>
+/* toem_realloc.c */
+char *_memset(char *, char, unsigned int);
+void ffree(char **);
+void *_realloc(void *, unsigned int, unsigned int);
 
-/* MACROS */
-#define BUFF_SIZ 1024
+/* toem_memory.c */
+int bfree(void **);
 
-/**
-* struct Node - singly linked list
-* @str: string - (malloc'ed string)
-* @next: points to the next node
-*/
-struct Node
-{
-	char *str;
-	struct Node *next;
-};
+/* toem_atoi.c */
+int interactive(info_t *);
+int is_delim(char, char *);
+int _isalpha(int);
+int _atoi(char *);
 
-/* ENVIRON FUNCTION PROTOTYPE */
-extern char **environ;
-int _env(void);
-void add_env_var(struct Node **head, const char *name, const char *value);
-void update_environ(struct Node *head);
-int _setenv(const char *name, const char *value);
-int _unsetenv(const char *name);
-void print_list(struct Node *head);
-void free_list(struct Node *head);
+/* toem_errors1.c */
+int _erratoi(char *);
+void print_error(info_t *, char *);
+int print_d(int, int);
+char *convert_number(long int, int, int);
+void remove_comments(char *);
 
-/* FUNCTION PROTOTYPE */
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-char *my_strchr(const char *str, int ch);
-char *_strtok(char *str, const char *delim);
-char *_getenv(const char *name);
-int _strcmp(const char *str1, const char *str2);
-int _strlen(const char *str);
-int _strncpy(char *dest, char *src, int size);
-int _strncmp(const char *str1, const char *str2, size_t len);
-int _strcpy(char *dest, char *src);
-char *_strcat(char *dest, const char *src);
-char *_strdup(char *s);
-size_t my_strcspn(const char *str, const char *chars);
-void *_memcpy(void *dest, void *src, size_t n);
-void *_realloc(void *ptr, size_t size);
+/* toem_builtin.c */
+int _myexit(info_t *);
+int _mycd(info_t *);
+int _myhelp(info_t *);
+
+/* toem_builtin1.c */
+int _myhistory(info_t *);
+int _myalias(info_t *);
+
+/*toem_getline.c */
+ssize_t get_input(info_t *);
+int _getline(info_t *, char **, size_t *);
+void sigintHandler(int);
+
+/* toem_getinfo.c */
+void clear_info(info_t *);
+void set_info(info_t *, char **);
+void free_info(info_t *, int);
+
+/* toem_environ.c */
+char *_getenv(info_t *, const char *);
+int _myenv(info_t *);
+int _mysetenv(info_t *);
+int _myunsetenv(info_t *);
+int populate_env_list(info_t *);
+
+/* toem_getenv.c */
+char **get_environ(info_t *);
+int _unsetenv(info_t *, char *);
+int _setenv(info_t *, char *, char *);
+
+/* toem_history.c */
+char *get_history_file(info_t *info);
+int write_history(info_t *info);
+int read_history(info_t *info);
+int build_history_list(info_t *info, char *buf, int linecount);
+int renumber_history(info_t *info);
+
+/* toem_lists.c */
+list_t *add_node(list_t **, const char *, int);
+list_t *add_node_end(list_t **, const char *, int);
+size_t print_list_str(const list_t *);
+int delete_node_at_index(list_t **, unsigned int);
+void free_list(list_t **);
+
+/* toem_lists1.c */
+size_t list_len(const list_t *);
+char **list_to_strings(list_t *);
+size_t print_list(const list_t *);
+list_t *node_starts_with(list_t *, char *, char);
+ssize_t get_node_index(list_t *, list_t *);
+
+/* toem_vars.c */
+int is_chain(info_t *, char *, size_t *);
+void check_chain(info_t *, char *, size_t *, size_t, size_t);
+int replace_alias(info_t *);
+int replace_vars(info_t *);
+int replace_string(char **, char *);
+
 #endif /* SHELL_H */
