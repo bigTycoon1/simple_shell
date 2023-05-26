@@ -10,7 +10,7 @@ char *_getenv(const char *name)
 
 	for (i = 0; environ[i] != NULL; i++)
 	{
-		char *equal = strchr(environ[i], '=');
+		char *equal = my_strchr(environ[i], '=');
 
 		if (equal != NULL)
 		{
@@ -25,24 +25,4 @@ char *_getenv(const char *name)
 		}
 	}
 	return (NULL);
-}
-/**
- * main - Entry point
- *
- * Return: Always 0.
- */
-int main(void)
-{
-	char *path = _getenv("PATH");
 
-	if (path != NULL)
-	{
-		printf("PATH: %s\n", path);
-	}
-	else
-	{
-		printf("PATH variable not found.\n");
-	}
-
-	return (0);
-}
