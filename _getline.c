@@ -58,25 +58,3 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 		free(buffer);
 		return ((ssize_t) i);
 }
-/**
- * main - Entry point test file
- *
- * Return: Always 0.
- */
-int main(void)
-{
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
-
-	printf("Enter a line of text:\n");
-	read = _getline(&line, &len, stdin);
-
-	if (read != -1)
-		printf("Line read: %s\n", line);
-	else
-		printf("Failed to read line.\n");
-	free(line);
-
-	return (0);
-}

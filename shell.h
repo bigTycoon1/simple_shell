@@ -16,11 +16,26 @@
 /* MACROS */
 #define BUFF_SIZ 1024
 
+/**
+* struct Node - singly linked list
+* @str: string - (malloc'ed string)
+* @next: points to the next node
+*/
+struct Node
+{
+	char *str;
+	struct Node *next;
+};
+
 /* ENVIRON FUNCTION PROTOTYPE */
 extern char **environ;
 int _env(void);
+void add_env_var(struct Node **head, const char *name, const char *value);
+void update_environ(struct Node *head);
 int _setenv(const char *name, const char *value);
 int _unsetenv(const char *name);
+void print_list(struct Node *head);
+void free_list(struct Node *head);
 
 /* FUNCTION PROTOTYPE */
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
