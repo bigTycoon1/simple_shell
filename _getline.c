@@ -13,6 +13,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	size_t buffer_size = 1024;
 	size_t i = 0;
 	int c;
+	char *new_buffer;
 	char *buffer = (char *) malloc(buffer_size);
 
 	if (!buffer)
@@ -23,7 +24,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 		if (i >= buffer_size - 1)
 		{
 			buffer_size *= 2;
-			char *new_buffer = realloc(buffer, buffer_size);
+			new_buffer = realloc(buffer, buffer_size);
 
 			if (!new_buffer)
 			{

@@ -26,6 +26,7 @@ char *my_strchr(const char *str, int ch)
 char *_strtok(char *str, const char *delim)
 {
 	static char *tokenPtr;
+	char *currentToken;
 
 	if (str != NULL)
 		tokenPtr = str;
@@ -36,7 +37,7 @@ char *_strtok(char *str, const char *delim)
 	if (*tokenPtr == '\0')
 		return (NULL);
 
-	char *currentToken = tokenPtr;
+	currentToken = tokenPtr;
 
 	while (*tokenPtr != '\0' && my_strchr(delim, *tokenPtr) == NULL)
 	{

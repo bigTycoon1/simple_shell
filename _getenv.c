@@ -7,6 +7,7 @@
 char *_getenv(const char *name)
 {
 	int i;
+	char *env_name;
 
 	for (i = 0; environ[i] != NULL; i++)
 	{
@@ -15,7 +16,7 @@ char *_getenv(const char *name)
 		if (equal != NULL)
 		{
 			*equal = '\0';
-			char *env_name = environ[i];
+			env_name = environ[i];
 			char *env_value = equal + 1;
 
 			if (_strcmp(env_name, name) == 0)
@@ -25,4 +26,4 @@ char *_getenv(const char *name)
 		}
 	}
 	return (NULL);
-
+}

@@ -8,6 +8,7 @@ int main(void)
 {
 	char input[BUFF_SIZ];
 	int stat;
+	pid_t pid;
 
 	while (1)
 	{
@@ -26,7 +27,7 @@ int main(void)
 			printf("./shell: No such file or directory\n");
 			continue;
 		}
-		pid_t pid = fork();
+		pid = fork();
 
 		if (pid < 0)
 		{
