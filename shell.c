@@ -1,35 +1,45 @@
 #include "shell.h"
-int main()
+int main(void)
 {
+	char input[BUFF_SIZ];
+	int stat;
+
 	while (1)
 	{
-		char command[256];
+		printf("#cisfun$ ");
+		fflush(stdout);
 
-		printf("#simple_shell$ ");
-
-		fgets(command, sizeof(command), stdin);
-
-		command[strcspn(command, "\n")] = '\0';
-
-		if (strcmp(command, "exit") == 0)
+		if (fgets(input, sizeof(input), stdin) == NULL)
 		{
+			printf("\n");
 			break;
 		}
+		input[my_strcspn(input, "\n")] = '\0';
+
+		if (_strcmp(input, "/bin/ls") != 0)
+		{
+			printf("./shell: No such file or directory\n");
+			continue;
+		}
 		pid_t pid = fork();
-		if (pid == -1)
+
+		if (pid < 0)
 		{
 			perror("fork");
 			exit(EXIT_FAILURE);
 		}
 		else if (pid == 0)
 		{
-			execlp(command, command, NULL);
-			perror("exec");
-			exit(EXIT_FAILURE);
-		}
-		else
-		{
-			wait(NULL);
+			if (execl("/bin/ls", "ls", (char *) NULL) == -1)
+			{
+				perror("execl");
+				exit(EXIT_FAILURE);
+			}
+			else
+			{
+				waitpid(pid, &stat, 0);
+			}
+
 		}
 	}
 	return (0);
