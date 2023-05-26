@@ -29,7 +29,7 @@ void _execve(char *command)
 	pid_t pid = fork();
 
 	if (pid < 0)
-		perror("./shell");
+		perror("$");
 	else if (pid == 0)
 	{
 		char *args[] = {"/bin/ls", NULL};
@@ -37,7 +37,7 @@ void _execve(char *command)
 		args[1] = command;
 		execvp(args[0], args);
 
-		perror("./shell");
+		perror("$");
 		exit(EXIT_FAILURE);
 	}
 	else
