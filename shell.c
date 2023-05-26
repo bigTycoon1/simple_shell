@@ -1,4 +1,9 @@
 #include "shell.h"
+/**
+ * main - Entry point
+ *
+ * Return: Always 0
+ */
 int main(void)
 {
 	char input[BUFF_SIZ];
@@ -36,10 +41,7 @@ int main(void)
 				exit(EXIT_FAILURE);
 			}
 			else
-			{
 				waitpid(pid, &stat, 0);
-			}
-
 		}
 	}
 	return (0);
