@@ -1,4 +1,4 @@
-#include "shell.c"
+#include "shell.h"
 /**
  * _strcmp - compares two strings
  * @s: first string to compare
