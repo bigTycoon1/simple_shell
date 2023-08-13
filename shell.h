@@ -9,6 +9,8 @@
 #include <sys/wait.h>
 #include <string.h>
 
+#define BUFFER 1024
+
 int _putchar(char c);
 
 #endif
