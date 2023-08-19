@@ -10,6 +10,7 @@
 #include <string.h>
 
 #define BUFFER 5024
+extern char **environ;
 
 int _putchar(char c);
 int _strlen(char *s);
@@ -23,6 +24,9 @@ int _strcmp(char *s, char *c);
 char *_strchr(char *s, char c);
 ssize_t _getline(char **lineptr, size_t *n);
 char *_strtok(char *str, const char *delim);
+char *_getenv(const char *name);
+char *_get_command_name(const char *path);
+char *which(char *command);
 
 
 #endif
