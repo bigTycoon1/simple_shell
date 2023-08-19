@@ -16,7 +16,6 @@ int _strlen(char *s)
 	}
 	return (count);
 }
-
 /**
  * *_strcpy - function that copies the string pointed
  * @dest: data type string
@@ -35,7 +34,6 @@ char *_strcpy(char *dest, char *src)
 
 	return (dest);
 }
-
 /**
  * _putchar - writes the character c to stdout
  * @c: The character to print
@@ -47,7 +45,6 @@ int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
-
 /**
   *_memcpy -  function that copies memory area
   *@dest: destination to be copied to
