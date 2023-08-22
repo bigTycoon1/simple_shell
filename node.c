@@ -28,36 +28,3 @@ void print_linked_list(struct Node *list)
 		list = list->next;
 	}
 }
-/**
- * newNode - Creates a new node for a linked list
- * @env_var: value to be stored in the new node
- * Return: Pointer to the newly created node
- */
-static struct Node *newNode(char *env_var)
-{
-	struct Node *node = malloc(sizeof(struct Node));
-
-	if (node == NULL)
-		return (NULL);
-	node->env_var = env_var;
-	node->next = NULL;
-	return (node);
-}
-/**
- * addNode - Adds a node to the end of a linked list
- * @head: Pointer to the head of the linked list
- * @node: Node to be added to the linked list
- */
-static void addNode(struct Node **head, struct Node *node)
-{
-	if (*head == NULL)
-		*head = node;
-	else
-	{
-		struct Node *current = *head;
-
-		while (current->next != NULL)
-			current = current->next;
-		current->next = node;
-	}
-}
