@@ -45,7 +45,5 @@ void _exec(char **arg, char *av, int count)
 	}
 	wait(&status);
 	if (WIFEXITED(status))
-	{
 		ex_code = WEXITSTATUS(status);
-	}
 }

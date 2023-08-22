@@ -1,5 +1,7 @@
 #include "shell.h"
 /**
+ * cd - change directory in shell
+ * @path: path to cd to
  */
 void cd(char *path)
 {

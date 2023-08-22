@@ -42,7 +42,7 @@ int main(int ac UNUSED, char **av UNUSED)
 
 		if (_strcmp(argv[0], "exit") == 0)
 		{
-			r = _1exit(ar[1], command_count, av[0], argv);
+			r = process_exit(ar[1], command_count, av[0], argv);
 			free(input);
 			free(input_copy);
 			if (r == 500)
