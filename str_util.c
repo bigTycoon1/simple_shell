@@ -1,6 +1,7 @@
 #include <string.h>
 #include "shell.h"
 /**
+<<<<<<< HEAD
  * _strdup - function to duplicate str
  * @src: pointer to source of the str
  *
@@ -10,7 +11,6 @@ void *_strdup(const char *src)
 {
 	int len;
 	char *new_str;
-
 
 	len = _strlen(src) + 1;
 	new_str = (char *)malloc(len);
@@ -24,7 +24,6 @@ void *_strdup(const char *src)
 
 	return (new_str);
 }
-
 /**
  * _strncmp - function to compare
  * @s1: first string

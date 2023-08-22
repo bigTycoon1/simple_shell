@@ -22,7 +22,6 @@ char *_strcat(char *dest, const char *src)
 	dest[i] = '\0';
 	return (dest);
 }
-
 /**
   *_atoi - function that convert a string to an integer.
   *@s: string to be converted
@@ -66,7 +65,6 @@ int _atoi(const char *s)
 
 	return (n);
 }
-
 /**
   * _strncpy -  function that copies a string
   * if (n > src), it will pad n - src of 0's to the dest,
@@ -91,7 +89,6 @@ char *_strncpy(char *dest, char *src, int n)
 	}
 	return (dest);
 }
-
 /**
  * _strcmp - compares two strings
  * @s: first string to compare
