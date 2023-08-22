@@ -73,13 +73,13 @@ void tokenize(char *command, char *arg[MAX_ARGS]);
 int count_argument(char *args[]);
 int process_exit(char *status, int c, char *sn, char **arg);
 int process_command(char **args);
-int access_check(char **arg, char *cmd, char *err, int c, char **e);
+int access_exec(char **arg, char *cmd, char *err, int c, char **e);
 void print_error(char *err, int count, char *cmd_name, char *arg);
-void handle_sigint(int signo __attribute__((unused)));
+void handle_sigint(int signo UNUSED);
 void remwspace(char *s);
 bool wspace(char s);
 void cd(char *path);
-void handle_segfault(int signo __attribute__((unused)));
+void handle_segfault(int signo UNUSED);
 
 
 
