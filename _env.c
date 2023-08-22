@@ -1,12 +1,11 @@
 #include "shell.h"
+environ_list = NULL;
 /**
  * _env - print env var
  * Return: 0
  */
 int _env(void)
 {
-	struct Node *environ_list = NULL;
-
 	print_linked_list(environ_list);
 	return (0);
 }
@@ -18,8 +17,6 @@ int _env(void)
  */
 int _setenv(const char *name, const char *value)
 {
-	struct Node *environ_list = NULL;
-
 	if (name == NULL || value == NULL)
 		return (-1);
 

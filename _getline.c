@@ -73,7 +73,7 @@ ssize_t _getline(char **lineptr, size_t *n)
 		if (i >= buffersize - 1)
 		{
 			buffersize *= 2;
-			newptr = (char *)realloc(*lineptr, buffersize);
+			newptr = (char *)_realloc(*lineptr, buffersize);
 
 			if (newptr == NULL)
 				return (-1);

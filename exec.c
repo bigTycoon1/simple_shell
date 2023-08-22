@@ -16,7 +16,7 @@ void _exec(char **arg, char *av, int count)
 
 	if (arg[0][0] == '/')
 	{
-		if (access_check(arg, NULL, err, count, environ))
+		if (access_exec(arg, NULL, err, count, environ))
 			return;
 	}
 	else
@@ -29,7 +29,7 @@ void _exec(char **arg, char *av, int count)
 				_perror(err, count, arg[0]);
 				return;
 			}
-			if (access_check(arg, cmd1, err, count, environ))
+			if (access_exec(arg, cmd1, err, count, environ))
 			{
 				free(cmd1);
 				return;
@@ -39,13 +39,11 @@ void _exec(char **arg, char *av, int count)
 		else
 		{
 			cmd1 = arg[0];
-			if (access_check(arg, cmd1, err, count, environ))
+			if (access_exec(arg, cmd1, err, count, environ))
 				return;
 		}
 	}
 	wait(&status);
 	if (WIFEXITED(status))
-	{
 		ex_code = WEXITSTATUS(status);
-	}
 }
