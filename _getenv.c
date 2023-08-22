@@ -7,9 +7,9 @@
 char *_getenv(const char *name)
 {
 	char **env;
-	size_t namelen;
+	size_t namelen = _strlen(name);
 
-	for (*env = environ; *env; env++)
+	for (env = environ; *env; env++)
 	{
 		if (_strncmp(*env, name, namelen) == 0 && (*env)[namelen]
 				== '=')

@@ -5,7 +5,7 @@
   *
   *Return: lenght of the string
   */
-int _strlen(char *s)
+int _strlen(const char *s)
 {
 	int i;
 	int count = 0;
@@ -23,7 +23,7 @@ int _strlen(char *s)
  *
  *Return: pointer
  */
-char *_strcpy(char *dest, char *src)
+char *_strcpy(char *dest, const char *src)
 {
 	int i = -1;
 

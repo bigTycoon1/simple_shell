@@ -7,13 +7,13 @@
  *
  * Return: newly allocated duplicae str
  */
-void _strdup(const char *src)
+void *_strdup(const char *src)
 {
 	int len;
 	char *new_str;
 
 	len = _strlen(src) + 1;
-	*new_str = (char *)malloc(length);
+	new_str = (char *)malloc(len);
 
 	if (new_str == NULL)
 	{
@@ -34,8 +34,7 @@ void _strdup(const char *src)
  */
 int _strncmp(const char *s1, const char *s2, size_t n)
 {
-	char s1, s2;
-	int n, i = 0;
+	size_t i = 0;
 
 	for (i = 0; i < n; i++)
 	{
