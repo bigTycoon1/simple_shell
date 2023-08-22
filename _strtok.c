@@ -1,4 +1,4 @@
-#include "shell.c"
+#include "shell.h"
 /**
  * _strtok - replicate the std lib strtok
  * @str:string
@@ -15,7 +15,7 @@ char *_strtok(char *str, const char *delim)
 	else if (lastToken == NULL)
 		return (NULL);
 	tokenStart = lastToken;
-	while (*tokenStart && strchr(delim, *tokenStart))
+	while (*tokenStart && _strchr(delim, *tokenStart))
 		tokenStart++;
 
 	if (*tokenStart == '\0')
@@ -24,7 +24,7 @@ char *_strtok(char *str, const char *delim)
 		return (NULL);
 	}
 	tokenEnd = tokenStart + 1;
-	while (*tokenEnd && !strchr(delim, *tokenEnd))
+	while (*tokenEnd && !_strchr(delim, *tokenEnd))
 		tokenEnd++;
 	if (*tokenEnd == '\0')
 		lastToken = NULL;

@@ -6,7 +6,7 @@
   *
   * Return: dest
   */
-char *_strcat(char *dest, char *src)
+char *_strcat(char *dest, const char *src)
 {
 	int i, j;
 
@@ -29,7 +29,7 @@ char *_strcat(char *dest, char *src)
   *
   *Return: integer
   */
-int _atoi(char *s)
+int _atoi(const char *s)
 {
 	int i, d, n, len, f, digit;
 
@@ -98,7 +98,7 @@ char *_strncpy(char *dest, char *src, int n)
  * @c: second string to compare
  * Return: return 1 when strings match
  */
-int _strcmp(char *s, char *c)
+int _strcmp(const char *s, char *c)
 {
 	int i;
 
@@ -117,7 +117,7 @@ int _strcmp(char *s, char *c)
  * @c: char to be checked
  * Return: pointer to the first occurrence of `c` in `s`
  */
-char *_strchr(char *s, char c)
+const char *_strchr(const char *s, char c)
 {
 	int i = 0;
 

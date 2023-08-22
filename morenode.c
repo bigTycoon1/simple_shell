@@ -5,7 +5,7 @@
  * @name:name of env var
  * @value:value of env var
  */
-static void add_env_var(struct Node **list, const char *name,
+void add_env_var(struct Node **list, const char *name,
 		const char *value)
 {
 	size_t name_length = _strlen(name);
@@ -33,13 +33,13 @@ static void add_env_var(struct Node **list, const char *name,
 		current_node = current_node->next;
 	}
 
-	append_node(list, create_node(new_env_var));
+	addNode(list, newNode(new_env_var));
 }
 /**
- * update_environ_array - update the env array with the linked list
+ * update_environ - update the env array with the linked list
  * @list:list
  */
-static void update_environ_array(struct Node *list)
+void update_environ(struct Node *list)
 {
 	size_t node_count = 0;
 	struct Node *current_node = list;
