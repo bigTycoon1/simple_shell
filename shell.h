@@ -12,6 +12,7 @@
 #include <signal.h>
 #include <stddef.h>
 #include <malloc.h>
+#include <limits.h>
 
 #define BUFFER 5024
 #define MAX_ARGS 1024
