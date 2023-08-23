@@ -14,12 +14,11 @@ void add_env_var(struct Node **list, const char *name,
 	struct Node *current_node = *list;
 
 	if (new_env_var == NULL)
-	{
 		return;
-	}
-	_strcpy(new_env_var, name);
-	_strcat(new_env_var, "=");
-	_strcat(new_env_var, value);
+	_memcpy(new_env_var, (void *)name, name_length);
+	new_env_var[name_length] = '=';
+	_memcpy(new_env_var + name_length + 1, (void *)value, value_length);
+	new_env_var[name_length + value_length + 1] = '\0';
 
 	while (current_node != NULL)
 	{

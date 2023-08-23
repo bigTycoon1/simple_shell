@@ -5,9 +5,14 @@
  */
 int _env(void)
 {
+	char **env;
 	struct Node *environ_list = NULL;
 
+	for (env = environ; *env != NULL; env++)
+		addNode(&environ_list, newNode(*env));
+
 	print_linked_list(environ_list);
+	free_linked_list(environ_list);
 	return (0);
 }
 /**
@@ -18,13 +23,15 @@ int _env(void)
  */
 int _setenv(const char *name, const char *value)
 {
+	char **env;
 	struct Node *environ_list = NULL;
 
-	if (name == NULL || value == NULL)
-		return (-1);
+	for (env = environ; *env != NULL; env++)
+		addNode(&environ_list, newNode(*env));
 
 	add_env_var(&environ_list, name, value);
 	update_environ(environ_list);
+	free_linked_list(environ_list);
 
 	return (0);
 }

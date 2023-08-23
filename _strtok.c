@@ -8,30 +8,30 @@
 char *_strtok(char *str, const char *delim)
 {
 	static char *lastToken;
-	char *tokenStart, *tokenEnd;
+	char *token;
+	int  i = 0, size = 0;
 
 	if (str != NULL)
 		lastToken = str;
-	else if (lastToken == NULL)
-		return (NULL);
-	tokenStart = lastToken;
-	while (*tokenStart && _strchr(delim, *tokenStart))
-		tokenStart++;
-
-	if (*tokenStart == '\0')
+	while (lastToken[i] != '\0')
 	{
-		lastToken = NULL;
-		return (NULL);
+		if (lastToken[i] == *delim)
+		{
+			lastToken[i] = '\0';
+			token = lastToken;
+			lastToken = &lastToken[i + 1];
+			return (token);
+		}
+		else
+			i++;
 	}
-	tokenEnd = tokenStart + 1;
-	while (*tokenEnd && !_strchr(delim, *tokenEnd))
-		tokenEnd++;
-	if (*tokenEnd == '\0')
-		lastToken = NULL;
-	else
+	if (lastToken[0] != '\0')
 	{
-		*tokenEnd = '\0';
-		lastToken = tokenEnd + 1;
+		while (lastToken[size] != 0)
+			size++;
+		token = lastToken;
+		lastToken += size;
+		return (token);
 	}
-	return (tokenStart);
+	return (NULL);
 }

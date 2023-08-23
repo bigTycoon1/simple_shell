@@ -7,10 +7,10 @@
 void handle_sigint(int signo UNUSED)
 {
 	write(STDOUT_FILENO, "\n", 1);
-	if (cmd != NULL)
+	if (input != NULL)
 	{
-		free(cmd);
-		cmd = NULL;
+		free(input);
+		input = NULL;
 	}
 	exit(0);
 }
@@ -20,19 +20,10 @@ void handle_sigint(int signo UNUSED)
  */
 char *read_input(void)
 {
-	char *cmd1 = NULL;
-	size_t n = 0;
-
-	ssize_t bytes_read = _getline(&cmd1, &n);
-
-	if (bytes_read <= 0)
-	{
-		free(cmd1);
-		return (NULL);
-	}
+	char *command = _getline();
 
 	signal(SIGINT, handle_sigint);
-	return (cmd1);
+	return (command);
 }
 /**
  * handle_segfault - Signal handler for SIGSEGV (Segmentation Fault) signal.

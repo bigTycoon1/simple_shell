@@ -12,7 +12,6 @@
 #include <signal.h>
 #include <stddef.h>
 #include <malloc.h>
-#include <stdbool.h>
 
 #define BUFFER 5024
 #define MAX_ARGS 1024
@@ -20,7 +19,7 @@
 
 extern char **environ;
 int ex_code;
-static char *cmd UNUSED;
+static char *input UNUSED;
 
 /**
  * struct Node - node structure
@@ -81,7 +80,7 @@ int _putchar(char c);
 int _strlen(const char *s);
 char *_strcpy(char *dest, const char *src);
 char *_memcpy(char *dest, char *src, unsigned int n);
-void *_strdup(const char *src);
+void *_strdup(char *src);
 char *_strcat(char *dest, const char *src);
 int _strncmp(const char *s1, const char *s2, size_t n);
 int _atoi(const char *s);
@@ -91,9 +90,9 @@ const char *_strchr(const char *s, char c);
 void *_realloc(void *ptr, size_t size);
 
 /* PROTOTYPES */
-ssize_t _getline(char **lineptr, size_t *n);
+char *_getline(void);
 char *_strtok(char *str, const char *delim);
-char *_getenv(const char *name);
+char *_getenv(char *name);
 char *_get_command_name(const char *path);
 char *which(char *command);
 void _exec(char **arg, char *av, int count);
@@ -111,9 +110,10 @@ int access_exec(char **arg, char *cmd, char *err, int c, char **e);
 void print_error(char *err, int count, char *cmd_name, char *arg);
 void handle_sigint(int signo UNUSED);
 void remwspace(char *s);
-bool wspace(char s);
+int wspace(char s);
 void cd(char *path);
 void handle_segfault(int signo UNUSED);
+void hash(char *b);
 
 
 

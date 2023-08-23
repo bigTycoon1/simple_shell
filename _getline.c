@@ -1,13 +1,14 @@
 #include "shell.h"
-#include <stdbool.h>
 /**
  * wspace - check for white space
  * @c: char to check
  * Return: zero on success
  */
-bool wspace(char c)
+int wspace(char c)
 {
-	return (c == ' ' || c == '\t');
+	if (c == ' ' || c == '\t')
+		return (1);
+	return (0);
 }
 /**
  * remwspace - this function remove excess white space
@@ -16,75 +17,74 @@ bool wspace(char c)
 void remwspace(char *s)
 {
 	int len = strlen(s);
-	int i = 0, j = len - 1;
-	int k = 0, m;
-	bool lastWasSpace = false;
+	int i = 0, k, j = len - 1;
+	int d, c = 0, last = 0;
 
+	if (s == NULL)
+		return;
 	while (i < len && wspace(s[i]))
 		i++;
 	while (j >= i && wspace(s[j]))
 		j--;
-
-	for (m = i; m <= j; m++)
+	k = 0;
+	while (i <= j)
+		s[k++] = s[i++];
+	s[k] = '\0';
+	for (d = 0; d <= j; d++)
 	{
-		if (!wspace(s[m]))
+		if (s[d] != ' ')
 		{
-			s[k++] = s[m];
-			lastWasSpace = false;
-		}
-		else if (!lastWasSpace)
-		{
-			s[k++] = ' ';
-			lastWasSpace = true;
+			s[last++] = s[d];
+			c++;
 		}
 	}
-	s[k] = '\0';
+	s[last] = '\0';
 }
 
 /**
- * _getline - this function read input fron user
- * @lineptr:line pointer
- * @n: length
- * Return:input
+ * _getline - this function read input from user
+ * Return:input parse
  */
-ssize_t _getline(char **lineptr, size_t *n)
+char *_getline(void)
 {
-	char *newptr;
-	size_t buffersize = *n;
 	ssize_t nread;
 	char c = 0;
-	size_t i = 0;
+	int i = 0;
+	char *lineptr = malloc(sizeof(char) * BUFFER);
 
-	if (lineptr == NULL || n == NULL)
-		return (-1);
+	if (lineptr == NULL)
+		return (NULL);
 
-	if (*lineptr == NULL)
+	while (c != EOF && c != '\n')
 	{
-		*lineptr = (char *)malloc(buffersize);
-		if (*lineptr == NULL)
-			return (-1);
-	}
-	while ((nread = read(STDIN_FILENO, &c, 1)) > 0)
-	{
-		if (c == '\n')
-			break;
-		(*lineptr)[i++] = c;
-
-		if (i >= buffersize - 1)
+		nread = read(STDIN_FILENO, &c, 1);
+		if (nread == 0 || nread == -1)
 		{
-			buffersize *= 2;
-			newptr = (char *)_realloc(*lineptr, buffersize);
-
-			if (newptr == NULL)
-				return (-1);
-
-			*lineptr = newptr;
-			*n = buffersize;
+			free(lineptr);
+			if (nread == 0)
+				exit(ex_code);
+			if (nread == -1)
+				perror("Error: ");
 		}
+		lineptr[i] = c;
+		if (lineptr[0] == '\n')
+		{
+			free(lineptr);
+			return ("\0");
+		}
+		if (i + 1 >= BUFFER)
+		{
+			lineptr = _realloc(lineptr, i + 1);
+			if (lineptr == NULL)
+			{
+				free(lineptr);
+				return (NULL);
+			}
+		}
+		i++;
 	}
-	if (i == 0 && nread == 0)
-		return (-1);
-	(*lineptr)[i] = '\0';
-	remwspace(*lineptr);
-	return (i);
+		lineptr[i - 1] = '\0';
+		remwspace(lineptr);
+		hash(lineptr);
+		return (lineptr);
 }
