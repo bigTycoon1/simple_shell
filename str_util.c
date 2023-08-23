@@ -6,7 +6,7 @@
  *
  * Return: newly allocated duplicae str
  */
-void *_strdup(const char *src)
+void *_strdup(char *src)
 {
 	int len;
 	char *new_str;
@@ -75,4 +75,19 @@ void *_realloc(void *ptr, size_t size)
 	_memcpy(new_ptr, ptr, copy_size);
 	free(ptr);
 	return (new_ptr);
+}
+/**
+ * hash - check # character input
+ * @b:buffer
+ */
+void hash(char *b)
+{
+	int i = 0;
+
+	while (b[i] != '\0')
+	{
+		if (b[i] == '#')
+			b[i] = '\0';
+		i++;
+	}
 }

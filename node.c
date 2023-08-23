@@ -11,7 +11,6 @@ void free_linked_list(struct Node *list)
 	{
 		temp = list;
 		list = list->next;
-		free(temp->env_var);
 		free(temp);
 	}
 }
@@ -23,7 +22,7 @@ void print_linked_list(struct Node *list)
 {
 	while (list != NULL)
 	{
-		write(STDOUT_FILENO, list->env_var, strlen(list->env_var));
+		write(STDOUT_FILENO, list->env_var, _strlen(list->env_var));
 		write(STDOUT_FILENO, "\n", 1);
 		list = list->next;
 	}

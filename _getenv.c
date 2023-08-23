@@ -4,16 +4,17 @@
  * @name: argument name
  * Return: NULL
  */
-char *_getenv(const char *name)
+char *_getenv(char *name)
 {
-	char **env;
-	size_t namelen = _strlen(name);
+	int i = 0;
+	int namelen = _strlen(name);
 
-	for (env = environ; *env; env++)
+	while (environ[i] != NULL)
 	{
-		if (_strncmp(*env, name, namelen) == 0 && (*env)[namelen]
+		if (_strncmp(environ[i], name, namelen) == 0 && environ[i][namelen]
 				== '=')
-			return (*env + namelen + 1);
+			return (&(environ[i][namelen + 1]));
+		i++;
 	}
 	return (NULL);
 }

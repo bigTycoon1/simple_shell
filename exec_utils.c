@@ -5,10 +5,12 @@
  */
 void _print(char *s)
 {
-	while (*s != '\0')
+	int i = 0;
+
+	while (s[i] != '\0')
 	{
-		_putchar(*s);
-		s++;
+		_putchar(s[i]);
+		i++;
 	}
 }
 /**
