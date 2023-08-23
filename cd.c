@@ -8,7 +8,7 @@ void cd(char *path)
 	char *home = _getenv("HOME");
 	char *oldpwd = _getenv("OLDPWD");
 	char *pwd = _getenv("PWD");
-	char cwd[1024];
+	char cwd[PATH_MAX];
 
 	if (path == NULL)
 	{
@@ -18,7 +18,7 @@ void cd(char *path)
 			return;
 		}
 		setenv("OLDPWD", pwd, 1);
-		setenv("pwd", home, 1);
+		setenv("PWD", home, 1);
 	}
 	else if (_strcmp(path, "-") == 0)
 	{
@@ -30,7 +30,7 @@ void cd(char *path)
 				return;
 			}
 			setenv("OLDPWD", pwd, 1);
-			setenv("pwd", oldpwd, 1);
+			setenv("PWD", oldpwd, 1);
 		}
 	}
 	else
