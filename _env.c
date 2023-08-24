@@ -42,21 +42,17 @@ int _setenv(const char *name, const char *value)
  */
 int _unsetenv(const char *name)
 {
-	char **env_var;
 	char **env;
+	struct Node *environ_list = NULL;
 	size_t name_length = _strlen(name);
 
 	for (env = environ; *env != NULL; env++)
 	{
-		if (_strncmp(*env, name, name_length) == 0 &&
-				(*env)[name_length] == '=')
-		{
-			for (env_var = env; *env_var != NULL; env_var++)
-			{
-				*env_var = *(env_var + 1);
-			}
-			return (0);
-		}
+		if (_strncmp(*env, name, name_length) != 0 ||
+				(*env)[name_length] != '=')
+			addNode(&environ_list, newNode(*env));
 	}
-	return (-1);
+	update_environ(environ_list);
+	free_linked_list(environ_list);
+	return (0);
 }
