@@ -43,7 +43,7 @@ char *_strcpy(char *dest, const char *src)
  */
 int _putchar(char c)
 {
-	return (write(1, &c, 1));
+	return (write(2, &c, 1));
 }
 /**
   *_memcpy -  function that copies memory area
