@@ -29,7 +29,7 @@ char *_getline(void)
 		while (lindex < len && b[lindex] != '\n')
 			lindex++;
 		cl = lindex - pos;
-		l = _realloc(l, (llen + cl + 1) * sizeof(char));
+		l = realloc(l, (llen + cl + 1) * sizeof(char));
 		if (l == NULL)
 			return (NULL);
 		for (i = 0; i < cl; i++)
