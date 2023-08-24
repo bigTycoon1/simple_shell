@@ -45,23 +45,33 @@ int wspace(char c)
 void remwspace(char *s)
 {
 	int len = strlen(s);
-	int i = 0, k = 0;
-	int last = -1;
+	int i = 0, j = len - 1, k;
+	int last, c, m;
 
 	if (s == NULL)
 		return;
-	while (i < len)
+	while (i < len && wspace(s[i]))
+		i++;
+	while (j >= i && wspace(s[j]))
+		j--;
+	k = 0;
+	while (i <= j)
+		s[k++] = s[i++];
+	s[k] = '\0';
+	last = 0;
+	c = 0;
+	for (m = 0; m <= j; m++)
 	{
-		if (!wspace(s[i]))
+		if (s[m] != ' ')
 		{
-			last = i;
-			s[k++] = s[i++];
+			s[last++] = s[m];
+			c = 0;
 		}
-		else
-			i++;
+		else if (c == 0)
+		{
+			s[last++] = s[m];
+			c++;
+		}
 	}
-	if (last >= 0)
-		s[last + 1] = '\0';
-	else
-		s[0] = '\0';
+	s[last] = '\0';
 }
