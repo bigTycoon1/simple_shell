@@ -5,42 +5,43 @@
  */
 char *_getline(void)
 {
-	static char b[MAX_ARGS];
-	static size_t len;
-	static size_t pos;
+	int i = 0;
+	ssize_t nread;
+	char c = 0;
+	char *b = malloc(sizeof(char) * BUFFER);
 
-	char *l = NULL;
-	size_t llen = 0;
-	size_t lindex = 0;
-	size_t cl, i;
-
-	while (1)
+	if (b == NULL)
+		return (NULL);
+	while (c != EOF && c != '\n')
 	{
-		if (pos >= len)
+		nread = read(STDIN_FILENO, &c, 1);
+		if (nread == 0 || nread == -1)
 		{
-			len = read(0, b, MAX_ARGS);
-			if (len == 0)
-				break;
-			if (len == (size_t)-1)
+			free(b);
+			if (nread == 0)
+				exit(ex_code);
+			if (nread == -1)
+				perror("Error ");
+		}
+		b[i] = c;
+		if (b[0] == '\n')
+		{
+			free(b);
+			return ("\0");
+		}
+		if (i + 1 >= BUFFER)
+		{
+			b = realloc(b, i + 1);
+			if (b == NULL)
+			{
+				free(b);
 				return (NULL);
-			pos = 0;
+			}
 		}
-		lindex = pos;
-		while (lindex < len && b[lindex] != '\n')
-			lindex++;
-		cl = lindex - pos;
-		l = realloc(l, (llen + cl + 1) * sizeof(char));
-		if (l == NULL)
-			return (NULL);
-		for (i = 0; i < cl; i++)
-			l[llen + i] = b[pos + i];
-		llen += cl;
-		pos = lindex + 1;
-		if (lindex < len && b[lindex] == '\n')
-		{
-			l[llen] = '\0';
-			return (l);
-		}
+		i++;
 	}
-	return (l);
+	b[i + 1] = '\0';
+	remwspace(b);
+	hash(b);
+	return (b);
 }
