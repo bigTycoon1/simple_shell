@@ -31,7 +31,7 @@ char *_getline(void)
 		}
 		if (i + 1 >= BUFFER)
 		{
-			b = realloc(b, i + 1);
+			b = _realloc(b, i + 1);
 			if (b == NULL)
 			{
 				free(b);
