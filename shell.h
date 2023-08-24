@@ -11,7 +11,6 @@
 #include <errno.h>
 #include <signal.h>
 #include <stddef.h>
-#include <malloc.h>
 #include <limits.h>
 
 #define BUFFER 5024

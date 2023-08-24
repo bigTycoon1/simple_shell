@@ -27,3 +27,41 @@ void print_linked_list(struct Node *list)
 		list = list->next;
 	}
 }
+/**
+ * wspace - check for white space
+ * @c: char to check
+ * Return: zero on success
+ */
+int wspace(char c)
+{
+	if (c == ' ' || c == '\t')
+		return (1);
+	return (0);
+}
+/**
+ * remwspace - this function remove excess white space
+ * @s: character to check
+ */
+void remwspace(char *s)
+{
+	int len = strlen(s);
+	int i = 0, k = 0;
+	int last = -1;
+
+	if (s == NULL)
+		return;
+	while (i < len)
+	{
+		if (!wspace(s[i]))
+		{
+			last = i;
+			s[k++] = s[i++];
+		}
+		else
+			i++;
+	}
+	if (last >= 0)
+		s[last + 1] = '\0';
+	else
+		s[0] = '\0';
+}

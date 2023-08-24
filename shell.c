@@ -9,7 +9,7 @@ int main(int ac UNUSED, char **av UNUSED)
 	char *input_copy = NULL;
 	char *argv[MAX_ARGS], *ar[MAX_ARGS];
 	int command_count = 0, r;
-	
+
 	ex_code = 0;
 
 	signal(SIGSEGV, handle_segfault);
