@@ -58,7 +58,6 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 void *_realloc(void *ptr, size_t size)
 {
 	void *new_ptr;
-	size_t old_size, copy_size;
 
 	if (size == 0)
 	{
@@ -70,9 +69,7 @@ void *_realloc(void *ptr, size_t size)
 	new_ptr = malloc(size);
 	if (new_ptr == NULL)
 		return (NULL);
-	old_size = malloc_usable_size(ptr);
-	copy_size = (old_size < size) ? old_size : size;
-	_memcpy(new_ptr, ptr, copy_size);
+	_memcpy(new_ptr, ptr, size);
 	free(ptr);
 	return (new_ptr);
 }
