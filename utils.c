@@ -112,23 +112,17 @@ int _strcmp(const char *s, char *c)
  * _strchr - search a char in a string
  * @s: string to be searched
  * @c: char to be checked
- * Return: pointer to the first occurrence of `c` in `s`
+ * Return: pointer to the first occurrence of s
  */
-const char *_strchr(const char *s, char c)
+char *_strchr(const char *s, int c)
 {
-	int i = 0;
-
-	for (; s[i] != c && s[i] != '\0'; i++)
+	while (*s)
 	{
-		;
+		if (*s == c)
+		{
+			return ((char *)s);
+		}
+		s++;
 	}
-
-	if (s[i] == c)
-	{
-		return (s + i);
-	}
-	else
-	{
-		return (NULL);
-	}
+	return (NULL);
 }

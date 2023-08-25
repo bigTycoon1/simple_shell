@@ -93,7 +93,7 @@ int a_cmd(char *arg[MAX_ARGS], int num_arg UNUSED)
 	for (j = 1; j < num_arg; j++)
 	{
 		n = arg[j];
-		v = strchr(arg[j], '=');
+		v = _strchr(arg[j], '=');
 		if (v)
 		{
 			*v = '\0';
