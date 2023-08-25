@@ -90,6 +90,20 @@ int _strcmp(const char *s, char *c);
 const char *_strchr(const char *s, char c);
 void *_realloc(void *ptr, size_t size);
 
+/* STD HELPER FUNCTION */
+int _putchar(char c);
+int _strlen(const char *s);
+char *_strcpy(char *dest, const char *src);
+char *_memcpy(char *dest, char *src, unsigned int n);
+void *_strdup(char *src);
+char *_strcat(char *dest, const char *src);
+int _strncmp(const char *s1, const char *s2, size_t n);
+int _atoi(const char *s);
+char *_strncpy(char *dest, char *src, int n);
+int _strcmp(const char *s, char *c);
+const char *_strchr(const char *s, char c);
+void *_realloc(void *ptr, size_t size);
+
 /* PROTOTYPES */
 char *_getline(void);
 char *_strtok(char *str, const char *delim);
@@ -133,4 +147,5 @@ void s_alias(alias_b **aliases, char *n, char *v);
 void init_a(alias_b **aliases);
 int a_cmd(char *arg[MAX_ARGS], int num_arg UNUSED);
 void print_aliases(alias_b *aliases);
+
 #endif
