@@ -1,44 +1,49 @@
 #include "shell.h"
 /**
+ * _exec - execute cmmand
+ * @arg:arguments
+ * @av:name
+ * @count:count
  */
-int exec(char **arg)
+void _exec(char **arg, char *av, int count)
 {
-	char *fc, *fl;
-	pid_t ch;
-	int i = 0;
+	char *cmd1;
+	char err[50];
+	int status;
 
-	fc = NULL;
-	fl = NULL;
-	ch = -1;
-	fc = arg[0];
-	fl = _path(fc);
+	_strcpy(err, av);
+	ex_code = 0;
 
-	if (fl == NULL)
-		return (1);
-	if (arg && access(fl, X_OK) != -1)
+	if (arg[0][0] == '/')
 	{
-		ch = fork();
-
-		if (ch == -1)
+		if (access_exec(arg, NULL, err, count, environ))
+			return;
+	}
+	else
+	{
+		if (arg[0][0] != '.')
 		{
-			print_error(arg, "command not found\n");
-		}
-		else if (ch == 0)
-		{
-			if (execve(fl, arg, NULL) == -1)
-				print_error(arg, "command not found\n");
+			cmd1 = which(arg[0]);
+			if (cmd1 == NULL)
+			{
+				_perror(err, count, arg[0]);
+				return;
+			}
+			if (access_exec(arg, cmd1, err, count, environ))
+			{
+				free(cmd1);
+				return;
+			}
+			free(cmd1);
 		}
 		else
 		{
-			if (waitpid(ch, &i, 0) == -1)
-				print_error(arg, "command not found\n");
+			cmd1 = arg[0];
+			if (access_exec(arg, cmd1, err, count, environ))
+				return;
 		}
-		if (_strcmp(fl, fc) != 0)
-			free(fl);
-		if (WIFEXITED(i))
-			i = WEXITSTATUS(i);
-		return (i);
 	}
-	free(fl);
-	return (1);
+	wait(&status);
+	if (WIFEXITED(status))
+		ex_code = WEXITSTATUS(status);
 }
