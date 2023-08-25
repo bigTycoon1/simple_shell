@@ -43,6 +43,11 @@ int _strcspn(char *s, char *src);
 int _strcmp(char *s, char *c);
 char *_strdup(char *dup, char *str);
 int _atoi(char *s);
+void *_realloc(void *ptr, size_t size);
+char *_memcpy(char *dest, char *src, unsigned int n);
+void hash(char *b);
+int wspace(char s);
+void remwspace(char *s);
 
 
 /** PROTOTYPE **/
