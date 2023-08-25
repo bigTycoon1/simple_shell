@@ -87,22 +87,9 @@ int _strncmp(const char *s1, const char *s2, size_t n);
 int _atoi(const char *s);
 char *_strncpy(char *dest, char *src, int n);
 int _strcmp(const char *s, char *c);
-const char *_strchr(const char *s, char c);
+char *_strchr(const char *s, int c);
 void *_realloc(void *ptr, size_t size);
 
-/* STD HELPER FUNCTION */
-int _putchar(char c);
-int _strlen(const char *s);
-char *_strcpy(char *dest, const char *src);
-char *_memcpy(char *dest, char *src, unsigned int n);
-void *_strdup(char *src);
-char *_strcat(char *dest, const char *src);
-int _strncmp(const char *s1, const char *s2, size_t n);
-int _atoi(const char *s);
-char *_strncpy(char *dest, char *src, int n);
-int _strcmp(const char *s, char *c);
-const char *_strchr(const char *s, char c);
-void *_realloc(void *ptr, size_t size);
 
 /* PROTOTYPES */
 char *_getline(void);
