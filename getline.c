@@ -5,10 +5,10 @@
  */
 char *_getline(void)
 {
-	int i = 0, status = 0;
+	int i = 0;
 	ssize_t nread;
-	char c = 0;
-	char *b = malloc(sizeof(char) * BUFFER);
+	char c = 0, *new_b;
+	char *b = malloc(sizeof(char) * (BUFFER + 1));
 
 	if (b == NULL)
 		return (NULL);
@@ -18,29 +18,29 @@ char *_getline(void)
 		if (nread == 0 || nread == -1)
 		{
 			free(b);
-			if (nread == 0)
-				exit(status);
 			if (nread == -1)
 				perror("Error ");
+			return (NULL);
 		}
 		b[i] = c;
 		if (b[0] == '\n')
 		{
 			free(b);
-			return ("\0");
+			return ("");
 		}
 		if (i + 1 >= BUFFER)
 		{
-			b = _realloc(b, i + 1);
-			if (b == NULL)
+			new_b = _realloc(b, i + 1);
+			if (new_b == NULL)
 			{
 				free(b);
 				return (NULL);
 			}
+			b = new_b;
 		}
 		i++;
 	}
-	b[i + 1] = '\0';
+	b[i] = '\0';
 	remwspace(b);
 	hash(b);
 	return (b);
