@@ -1,49 +1,49 @@
 #include "shell.h"
 /**
  * main - entry point
- * @UNUSED: unused variable
- * Return: 0 on sucess
+ * @UNUSED:unused variable
+ * Return: 0
  */
-int main(int argc UNUSED, char **argv UNUSED)
+int main(int ac UNUSED, char **av UNUSED)
 {
-	char *input, **arg;
-	ssize_t check;
-	int i, s = 0;
-	Node e;
+	char *input_copy = NULL;
+	char *argv[MAX_ARGS], *ar[MAX_ARGS];
+	int command_count = 0, r;
 
-	e.env_var = environ;
-	while (1 == 1)
-	{
-		input = NULL, check = 0;
-		input = prompt(&check);
-		arg = tokenize(input, arg, check);
-		if (arg[0] == NULL)
+	ex_code = 0;
+	signal(SIGSEGV, handle_segfault);
+	do {
+		command_count++;
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "$ ", 2);
+		input = read_input();
+		if (input == NULL)
+			exit(ex_code);
+		if (input[0] == '\0' || _strcmp(input, "\n") == 0)
 			continue;
-		if (_strcmp(arg[0], "env") == 0)
+		remwspace(input);
+		input_copy = _strdup(input);
+		tokenize(input_copy, ar);
+		tokenize(input, argv);
+		if (input[0] == '\0' || _strcmp(input, "\n") == 0)
 		{
 			free(input);
-			_env(&e);
-			free_arr(arg);
+			free(input_copy);
 			continue;	}
-		if (_strcmp(arg[0], "exit") == 0)
+		if (_strcmp(argv[0], "exit") == 0)
 		{
+			r = process_exit(ar[1], command_count, av[0], argv);
 			free(input);
-			_1exit(arg, s);
-			free_arr(arg);
-			continue;
-		}
-		i = env_cmd(arg);
-		if (i != 0)
-		{
-			free(input);
-			free_arr(arg);
-			continue;
-		}
-		s = exec(arg);
-		if (s == 1)
-			print_error(arg, "not found\n");
+			free(input_copy);
+			if (r == 500)
+				continue;
+			exit(r);	}
+		if (process_command(argv) == 0)
+			;
+		else
+			_exec(argv, av[0], command_count);
 		free(input);
-		free_arr(arg);
-	}
+		free(input_copy);
+	} while (1);
 	return (0);
 }

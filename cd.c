@@ -8,7 +8,7 @@ void cd(char *path)
 	char *home = _getenv("HOME");
 	char *oldpwd = _getenv("OLDPWD");
 	char *pwd = _getenv("PWD");
-	char cwd[1024];
+	char cwd[PATH_MAX];
 
 	if (path == NULL)
 	{
