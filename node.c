@@ -27,3 +27,14 @@ void print_linked_list(struct Node *list)
 		list = list->next;
 	}
 }
+/**
+ * print_aliases - this function print all aliases
+ * @aliases:head
+ */
+void print_aliases(alias_b *aliases)
+{
+	alias_b *alias;
+
+	for (alias = aliases; alias; alias = alias->next)
+		p_alias(alias);
+}

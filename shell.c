@@ -9,9 +9,8 @@ int main(int ac UNUSED, char **av UNUSED)
 	char *input_copy = NULL;
 	char *argv[MAX_ARGS], *ar[MAX_ARGS];
 	int command_count = 0, r;
-	
-	ex_code = 0;
 
+	ex_code = 0;
 	signal(SIGSEGV, handle_segfault);
 	do {
 		command_count++;
@@ -30,8 +29,7 @@ int main(int ac UNUSED, char **av UNUSED)
 		{
 			free(input);
 			free(input_copy);
-			continue;
-		}
+			continue;	}
 		if (_strcmp(argv[0], "exit") == 0)
 		{
 			r = process_exit(ar[1], command_count, av[0], argv);
@@ -39,8 +37,7 @@ int main(int ac UNUSED, char **av UNUSED)
 			free(input_copy);
 			if (r == 500)
 				continue;
-			exit(r);
-		}
+			exit(r);	}
 		if (process_command(argv) == 0)
 			;
 		else
