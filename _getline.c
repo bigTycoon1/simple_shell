@@ -1,47 +1,44 @@
 #include "shell.h"
 /**
- * _getline - replicate std getline function
- * Return:input
  */
 char *_getline(void)
 {
-	int i = 0;
-	ssize_t nread;
-	char c = 0;
-	char *b = malloc(sizeof(char) * BUFFER);
+	static char b[BUFFER];
+	static size_t blen;
+	static size_t pos;
 
-	if (b == NULL)
-		return (NULL);
-	while (c != EOF && c != '\n')
+	char *l = NULL;
+	size_t llen = 0;
+	size_t lindex = 0;
+	size_t cl, i;
+
+	while (1)
 	{
-		nread = read(STDIN_FILENO, &c, 1);
-		if (nread == 0 || nread == -1)
+		if (pos >= blen)
 		{
-			free(b);
-			if (nread == 0)
-				exit(ex_code);
-			if (nread == -1)
-				perror("Error ");
-		}
-		b[i] = c;
-		if (b[0] == '\n')
-		{
-			free(b);
-			return ("\0");
-		}
-		if (i + 1 >= BUFFER)
-		{
-			b = _realloc(b, i + 1);
-			if (b == NULL)
-			{
-				free(b);
+			blen = read(0, b, BUFFER);
+			if (blen == 0)
+				break;
+			if (blen == (size_t)-1)
 				return (NULL);
-			}
+			pos = 0;
 		}
-		i++;
+		lindex = pos;
+		while (lindex < blen && b[lindex] != '\n')
+			lindex++;
+		cl = lindex - pos;
+		l = realloc(l, (llen + cl + 1) * sizeof(char));
+		if (l == NULL)
+			return (NULL);
+		for (i = 0; i < cl; i++)
+			l[llen + i] = b[pos + i];
+		llen += cl;
+		pos = lindex + 1;
+		if (lindex < blen && b[lindex] == '\n')
+		{
+			l[llen] = '\0';
+			return (l);
+		}
 	}
-	b[i + 1] = '\0';
-	remwspace(b);
-	hash(b);
-	return (b);
+	return (l);
 }

@@ -1,90 +1,47 @@
-#include <stdlib.h>
 #include "shell.h"
 /**
- * process_command - process shell command
- * @args:array of string
- * Return:0 if command found, 1 if not
  */
-int process_command(char **args)
+char *_path(char *arg)
 {
-	int num_arg = count_argument(args);
+	struct stat pt;
+	char *cp, *cp_copy = NULL;
+	char *delim, *pf, *ptoken;
+	int len, lusr, pfl, i;
 
-	if (_strcmp(args[0], "cd") == 0)
-	{
-		if (num_arg >= 1)
-		{
-			cd(args[1]);
-			return (0);
-		}
-	}
-	else if (_strcmp(args[0], "env") == 0)
-	{
-		_env();
-		return (0);
-	}
-	else if (_strcmp(args[0], "setenv") == 0)
-	{
-		if (num_arg == 3)
-		{
-			_setenv(args[1], args[2]);
-			return (0);
-		}
-	}
-	else if (_strcmp(args[0], "unsetenv") == 0)
-	{
-		if (num_arg == 2)
-		{
-			_unsetenv(args[1]);
-			return (0);
-		}
-	}
-	return (1);
-}
-/**
- * process_exit - process exit command in shell
- * @status:string status
- * @c:command count
- * @sn:shell name
- * @arg:argumenti
- * Return:exit status code
- */
-int process_exit(char *status, int c, char *sn, char **arg)
-{
-	int i = ex_code;
-	int j;
+	delim = ":";
+	cp = _getenv("PATH");
 
-	if (status != NULL)
+	if (stat(arg, &pt) == 0)
+		return (arg);
+	if (cp)
 	{
-		j = 0;
-		while (status[j])
+		cp_copy = _strdup(cp_copy, cp);
+		lusr = str_len(arg);
+		ptoken = _strtok(cp_copy, delim);
+
+		while (ptoken != NULL)
 		{
-			if (!(status[j] >= '0' && status[j] <= '9'))
+			len = str_len(ptoken);
+			pfl = lusr + len + 2;
+			pf = malloc(pfl);
+			pf[0] = '\0';
+			for (i = 0; i < pfl; i++)
+				pf[i] = '\0';
+			str_copy(pf, ptoken);
+			str_cat(pf, "/");
+			str_cat(pf, arg);
+			str_cat(pf, "\0");
+			if (stat(pf, &pt) == 0)
 			{
-				print_error(sn, c, arg[0], status);
-				ex_code = 2;
-				return (500);
+				free(cp_copy);
+				free(ptoken);
+				return (pf);
 			}
-			j++;
+			free(pf);
+			free(ptoken);
+			ptoken = _strtok(NULL, delim);
 		}
-		i = _atoi(status);
 	}
-	return (i);
-}
-/**
- * print_error - related to numeric values
- * @err: err message
- * @count:show position
- * @cmd_name:name of command
- * @arg:argument
- */
-void print_error(char *err, int count, char *cmd_name, char *arg)
-{
-	_print(err);
-	_print(": ");
-	print_number(count);
-	_print(": ");
-	_print(cmd_name);
-	_print(": Illegal number: ");
-	_print(arg);
-	_print("\n");
+	free(cp_copy);
+	return (NULL);
 }
